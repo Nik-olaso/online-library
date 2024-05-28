@@ -30,7 +30,6 @@ def download_image(image_url, folder='images/'):
         file.write(response.content)
 
 
-
 def parse_book_page(number):
     url = f"https://tululu.org/b{number+1}/"
     response = requests.get(url)
@@ -55,7 +54,6 @@ def parse_book_page(number):
         'book_genres': book_genres,
     }
     return book_params
-
 
 
 def main():
@@ -89,8 +87,7 @@ def main():
             print(f'Жанры книги: {book_genres} \n\n')
         except requests.HTTPError:
             next
-
-
+            
 
 if __name__ == '__main__':
     main()
