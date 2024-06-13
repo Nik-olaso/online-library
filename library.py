@@ -62,17 +62,16 @@ def main():
     args = parser.parse_args()
     start_id = args.start_id
     end_id = args.end_id
-    for number in range(start_id - 1, end_id):
+    for number in range(start_id, end_id + 1):
         try:
-            index = number + 1
             payload = {
-                "id": index,
+                "id": number,
             }
             download_url = "https://tululu.org/"
             response = requests.get(urljoin(download_url, "txt.php"), params=payload)
             response.raise_for_status()
             check_for_redirect(response)
-            parse_url = f"https://tululu.org/b{index}/"
+            parse_url = f"https://tululu.org/b{number}/"
             parse_response = requests.get(parse_url)
             parse_response.raise_for_status()
             check_for_redirect(parse_response)
@@ -82,7 +81,7 @@ def main():
             book_picture_url = book_params["picture_url"]
             book_comments = book_params["comments"]
             book_genres = book_params["book_genres"]
-            download_txt(response, f"{index}. {book_name}", folder="txt/")
+            download_txt(response, f"{number}. {book_name}", folder="txt/")
             image_url = urljoin(download_url, book_picture_url)
             download_image(image_url)
             print(f"\nНазвание книги: {book_name}")
