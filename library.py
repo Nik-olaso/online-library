@@ -67,22 +67,22 @@ def main():
             payload = {
                 "id": number,
             }
-            download_url = "https://tululu.org/"
-            response = requests.get(urljoin(download_url, "txt.php"), params=payload)
+            downloading_url = "https://tululu.org/txt.php"
+            response = requests.get(downloading_url, params=payload)
             response.raise_for_status()
             check_for_redirect(response)
             parsing_url = f"https://tululu.org/b{number}/"
-            parse_response = requests.get(parsing_url)
-            parse_response.raise_for_status()
-            check_for_redirect(parse_response)
-            book_params = parse_book_page(parse_response)
+            parsing_response = requests.get(parsing_url)
+            parsing_response.raise_for_status()
+            check_for_redirect(parsing_response)
+            book_params = parse_book_page(parsing_response)
             book_name = book_params["book_name"]
             book_author = book_params["book_author"]
             book_picture_url = book_params["picture_url"]
             book_comments = book_params["comments"]
             book_genres = book_params["book_genres"]
             download_txt(response, f"{number}. {book_name}", folder="txt/")
-            image_url = urljoin(download_url, book_picture_url)
+            image_url = urljoin(downloading_url, book_picture_url)
             download_image(image_url)
             print(f"\nНазвание книги: {book_name}")
             print(f"Автор: {book_author}\n")
