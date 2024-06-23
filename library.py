@@ -82,7 +82,7 @@ def main():
             book_comments = book_params["comments"]
             book_genres = book_params["book_genres"]
             download_txt(response, f"{number}. {book_name}", folder="txt/")
-            image_url = urljoin(downloading_url, book_picture_url)
+            image_url = urljoin(parsing_url, book_picture_url)
             download_image(image_url)
             print(f"\nНазвание книги: {book_name}")
             print(f"Автор: {book_author}\n")
