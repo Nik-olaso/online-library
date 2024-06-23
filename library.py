@@ -71,8 +71,8 @@ def main():
             response = requests.get(urljoin(download_url, "txt.php"), params=payload)
             response.raise_for_status()
             check_for_redirect(response)
-            url_parsing = f"https://tululu.org/b{number}/"
-            parse_response = requests.get(url_parsing)
+            parsing_url = f"https://tululu.org/b{number}/"
+            parse_response = requests.get(parsing_url)
             parse_response.raise_for_status()
             check_for_redirect(parse_response)
             book_params = parse_book_page(parse_response)
