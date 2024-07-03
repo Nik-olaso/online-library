@@ -12,23 +12,26 @@ def check_for_redirect(response):
         raise requests.HTTPError
 
 
-def download_txt(response, filename, folder="books/"):
-    os.makedirs(folder, exist_ok=True)
-    filepath = sanitize_filepath(os.path.join(folder, f"{filename}.txt"))
+def download_txt(response, filename, folder):
+    new_folder = f"{folder}/books/"
+    os.makedirs(new_folder, exist_ok=True)
+    filepath = sanitize_filepath(os.path.join(new_folder, f"{filename}.txt"))
     with open(filepath, "wb") as file:
         file.write(response.content)
     return filepath
 
 
-def download_image(image_url, folder="images/"):
-    os.makedirs(folder, exist_ok=True)
+def download_image(image_url, folder):
+    new_folder = f"{folder}/images/"
+    os.makedirs(new_folder, exist_ok=True)
     response = requests.get(image_url)
     response.raise_for_status()
     check_for_redirect(response)
     filename = os.path.basename(image_url)
-    filepath = sanitize_filepath(os.path.join(folder, f"{filename}"))
+    filepath = sanitize_filepath(os.path.join(new_folder, f"{filename}"))
     with open(filepath, "wb") as file:
         file.write(response.content)
+    return filepath
 
 
 def parse_book_page(parse_response):
@@ -43,7 +46,9 @@ def parse_book_page(parse_response):
         "book_name": book_name,
         "book_author": book_author,
         "picture_url": picture_url,
-        "comments": comments,
+        "comments": [
+            comment.find("span", class_="black").text for comment in comments
+        ],  # Преобразование объектов Tag в строки
         "book_genres": book_genres,
     }
     return book_params
@@ -88,8 +93,7 @@ def main():
             print(f"Автор: {book_author}\n")
             if book_comments:
                 for comment in book_comments:
-                    comment_text = comment.find("span", class_="black").text
-                    print(f"Комментарий: {comment_text} \n")
+                    print(f"Комментарий: {comment} \n")
             print(f"Жанры книги: {book_genres} \n\n")
         except requests.HTTPError:
             print(
