@@ -15,16 +15,23 @@ def main():
         "--start_page", type=int, default=1, help="С какой страницы начинать скачивание"
     )
     parser.add_argument(
-        "--end_page", type=int, default=702, help="С какой страницы закончить скачивание"
+        "--end_page",
+        type=int,
+        default=702,
+        help="С какой страницы закончить скачивание",
     )
     parser.add_argument(
-        "--skip_txt", help="Пропустить скачивание текста книг или нет. Если пропустить - напишите 'skip', в ином случае не вводите параметр"
+        "--skip_txt",
+        help="Пропустить скачивание текста книг или нет. Если пропустить - напишите 'skip', в ином случае не вводите параметр",
     )
     parser.add_argument(
-        "--skip_img", help="Пропустить скачивание картинки книг или нет. Если пропустить - напишите 'skip', в ином случае не вводите параметр"
+        "--skip_img",
+        help="Пропустить скачивание картинки книг или нет. Если пропустить - напишите 'skip', в ином случае не вводите параметр",
     )
     parser.add_argument(
-        "--dest_folder", default='all_folders', help="Название общей папки для текста книг, их картинок и json-файла с параметрами книги"
+        "--dest_folder",
+        default="all_folders",
+        help="Название общей папки для текста книг, их картинок и json-файла с параметрами книги",
     )
     args = parser.parse_args()
     start_page = args.start_page
@@ -56,15 +63,19 @@ def main():
                 book_params = parse_book_page(book_response)
                 book_name = book_params["book_name"]
                 book_picture_url = book_params["picture_url"]
-                if not skip_txt == 'skip':
-                    book_path = download_txt(downloading_response, f"{book_name}", dest_folder)
+                if not skip_txt == "skip":
+                    book_path = download_txt(
+                        downloading_response, f"{book_name}", dest_folder
+                    )
                     book_params["book_path"] = book_path
                 image_url = urljoin(book_url, book_picture_url)
-                if not skip_img == 'skip':
-                    image_path = download_image(image_url, dest_folder) 
+                if not skip_img == "skip":
+                    image_path = download_image(image_url, dest_folder)
                     book_params["img_src"] = image_path
                 book_params.pop("picture_url")
-                with open(f"{dest_folder}/books_params.json", "a", encoding="utf8") as json_file:
+                with open(
+                    f"{dest_folder}/books_params.json", "a", encoding="utf8"
+                ) as json_file:
                     json.dump(book_params, json_file, ensure_ascii=False, indent=4)
         except requests.HTTPError:
             print(
@@ -77,5 +88,5 @@ def main():
             continue
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
