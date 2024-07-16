@@ -22,11 +22,13 @@ def main():
     )
     parser.add_argument(
         "--skip_txt",
-        help="Пропустить скачивание текста книг или нет. Если пропустить - напишите 'skip', в ином случае не вводите параметр",
+        action="store_true",
+        help="Пропустить скачивание текста книг или нет. Если пропустить - просто введите название параметра: '--skip_txt', в ином случае не вводите параметр",
     )
     parser.add_argument(
         "--skip_img",
-        help="Пропустить скачивание картинки книг или нет. Если пропустить - напишите 'skip', в ином случае не вводите параметр",
+        action="store_true",
+        help="Пропустить скачивание картинки книг или нет. Если пропустить - просто введите название параметра: '--skip_img', в ином случае не вводите параметр",
     )
     parser.add_argument(
         "--dest_folder",
@@ -63,13 +65,13 @@ def main():
                 book_params = parse_book_page(book_response)
                 book_name = book_params["book_name"]
                 book_picture_url = book_params["picture_url"]
-                if not skip_txt == "skip":
+                if not skip_txt:
                     book_path = download_txt(
                         downloading_response, f"{book_name}", dest_folder
                     )
                     book_params["book_path"] = book_path
                 image_url = urljoin(book_url, book_picture_url)
-                if not skip_img == "skip":
+                if not skip_img:
                     image_path = download_image(image_url, dest_folder)
                     book_params["img_src"] = image_path
                 book_params.pop("picture_url")
