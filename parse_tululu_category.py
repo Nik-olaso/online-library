@@ -48,10 +48,12 @@ def main():
             response.raise_for_status()
             check_for_redirect(response)
             soup = BeautifulSoup(response.text, "lxml")
-            books_cards = soup.select("table.d_book")
-            for number, book_card in enumerate(books_cards, 1):
+            books_cards = soup.select(".d_book")
+            for book_card in books_cards:
+                book_id = book_card.select_one("a")["href"]
+                book_id = book_id.split('/')[1][1:]
                 payload = {
-                    "id": number,
+                    "id": book_id,
                 }
                 downloading_url = "https://tululu.org/txt.php"
                 downloading_response = requests.get(downloading_url, params=payload)
