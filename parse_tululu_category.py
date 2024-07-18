@@ -59,7 +59,7 @@ def main():
                 downloading_url = "https://tululu.org/txt.php"
                 downloading_response = requests.get(downloading_url, params=payload)
                 downloading_response.raise_for_status()
-                check_for_redirect(response)
+                check_for_redirect(downloading_response)
                 book_url = book_card.select_one("a")["href"]
                 book_url = urljoin(scifi_url, book_url)
                 book_response = requests.get(book_url)
@@ -85,7 +85,7 @@ def main():
                 json.dump(all_books_params, json_file, ensure_ascii=False, indent=4)
         except requests.HTTPError:
             print(
-                "К сожалению запрос по этой книге оказался неудачным, такое часто бывает на этом сайте, попробуйте выбрать другие книги.\n"
+                "К сожалению запрос по этой книге оказался неудачным\n"
             )
             next
         except requests.ConnectionError:
