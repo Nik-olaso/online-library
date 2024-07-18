@@ -41,6 +41,7 @@ def main():
     skip_txt = args.skip_txt
     skip_img = args.skip_img
     dest_folder = args.dest_folder
+    all_books_params = []
     for number in range(start_page, end_page):
         try:
             scifi_url = f"https://tululu.org/l55/{number}"
@@ -67,6 +68,7 @@ def main():
                 book_params = parse_book_page(book_response)
                 book_name = book_params["book_name"]
                 book_picture_url = book_params["picture_url"]
+                all_books_params.append(book_params)
                 if not skip_txt:
                     book_path = download_txt(
                         downloading_response, f"{book_name}", dest_folder
@@ -77,10 +79,10 @@ def main():
                     image_path = download_image(image_url, dest_folder)
                     book_params["img_src"] = image_path
                 book_params.pop("picture_url")
-                with open(
-                    f"{dest_folder}/books_params.json", "a", encoding="utf8"
-                ) as json_file:
-                    json.dump(book_params, json_file, ensure_ascii=False, indent=4)
+            with open(
+                f"{dest_folder}/books_params.json", "a", encoding="utf8"
+            ) as json_file:
+                json.dump(all_books_params, json_file, ensure_ascii=False, indent=4)
         except requests.HTTPError:
             print(
                 "К сожалению запрос по этой книге оказался неудачным, такое часто бывает на этом сайте, попробуйте выбрать другие книги.\n"
