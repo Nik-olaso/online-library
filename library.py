@@ -41,7 +41,7 @@ def parse_book_page(parse_response):
     book_author = book[1].strip()
     picture_url = soup.select_one(".bookimage img")["src"]
     comments = soup.select(".texts")
-    book_genres = [genre.text for genre in soup.select(".d_book a")]
+    book_genres = [genre.text for genre in soup.select("span.d_book a")]
     book_params = {
         "book_name": book_name,
         "book_author": book_author,
