@@ -36,18 +36,18 @@ def download_image(image_url, folder):
 
 def parse_book_page(parse_response):
     soup = BeautifulSoup(parse_response.text, "lxml")
-    book = soup.find("h1").text.split("::")
+    book = soup.select_one("h1").text.split("::")
     book_name = book[0].strip()
     book_author = book[1].strip()
-    picture_url = soup.find("div", class_="bookimage").find("img")["src"]
-    comments = soup.find_all("div", class_="texts")
-    book_genres = [genre.text for genre in soup.select("span.d_book a")]
+    picture_url = soup.select_one(".bookimage img")["src"]
+    comments = soup.select(".texts")
+    book_genres = [genre.text for genre in soup.select(".d_book a")]
     book_params = {
         "book_name": book_name,
         "book_author": book_author,
         "picture_url": picture_url,
         "comments": [
-            comment.find("span", class_="black").text for comment in comments
+            comment.select_one(".black").text for comment in comments
         ],  # Преобразование объектов Tag в строки
         "book_genres": book_genres,
     }
@@ -86,9 +86,9 @@ def main():
             book_picture_url = book_params["picture_url"]
             book_comments = book_params["comments"]
             book_genres = book_params["book_genres"]
-            download_txt(response, f"{number}. {book_name}", folder="txt/")
+            download_txt(response, f"{number}. {book_name}", folder="all_books/")
             image_url = urljoin(parsing_url, book_picture_url)
-            download_image(image_url)
+            download_image(image_url, folder="all_books/")
             print(f"\nНазвание книги: {book_name}")
             print(f"Автор: {book_author}\n")
             if book_comments:
