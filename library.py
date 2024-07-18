@@ -48,7 +48,7 @@ def parse_book_page(parse_response):
         "picture_url": picture_url,
         "comments": [
             comment.select_one(".black").text for comment in comments
-        ],  # Преобразование объектов Tag в строки
+        ],
         "book_genres": book_genres,
     }
     return book_params
