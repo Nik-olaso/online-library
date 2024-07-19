@@ -46,9 +46,7 @@ def parse_book_page(parse_response):
         "book_name": book_name,
         "book_author": book_author,
         "picture_url": picture_url,
-        "comments": [
-            comment.select_one(".black").text for comment in comments
-        ],
+        "comments": [comment.select_one(".black").text for comment in comments],
         "book_genres": book_genres,
     }
     return book_params
