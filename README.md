@@ -76,7 +76,8 @@ python render_website.py
 
     После его запуска, на ваш компьютер сохранятся страницы библиотеки со скачанными уже книгами
 
-    Например, сайт может выглядеть [так](https://nik-olaso.github.io/online-library/pages/index1.html)
+    Например, сайт может выглядеть [так](https://nik-olaso.github.io/online-library/pages/index1.html):
+   
     ![alt text](static/images/website.png)
 
     Чтобы скачать только книгу, которую вы хотите, не скачивая код, вам нужно:
