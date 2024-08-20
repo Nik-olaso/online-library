@@ -32,7 +32,7 @@ def main():
     )
     parser.add_argument(
         "--dest_folder",
-        default="all_folders",
+        default="books_info",
         help="Название общей папки для текста книг, их картинок и json-файла с параметрами книги",
     )
     args = parser.parse_args()
