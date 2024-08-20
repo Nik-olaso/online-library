@@ -15,7 +15,7 @@ def on_reload():
     pages_path = "pages"
     os.makedirs(pages_path, exist_ok=True)
 
-    books_file = codecs.open("all_folders/books_params.json", "r", "utf_8_sig")
+    books_file = codecs.open("books_info/books_params.json", "r", "utf_8_sig")
     books_params = books_file.read()
     books_file.close()
     books_params = json.loads(books_params)
@@ -35,7 +35,12 @@ def on_reload():
             file.write(rendered_page)
 
 
-on_reload()
-server = Server()
-server.watch("template.html", on_reload)
-server.serve(root=".")
+def main():
+    on_reload()
+    server = Server()
+    server.watch("template.html", on_reload)
+    server.serve(root=".")
+
+
+if __name__ == '__main__':
+    main()
