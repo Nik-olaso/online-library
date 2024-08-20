@@ -19,10 +19,12 @@ def on_reload():
     books_params = books_file.read()
     books_file.close()
     books_params = json.loads(books_params)
-    books_params = list(chunked(books_params, 10))
+    books_on_page = 10
+    books_params = list(chunked(books_params, books_on_page))
     for page_number, book_params in enumerate(books_params, 1):
         filename = f"index{page_number}.html"
-        book_params = list(chunked(book_params, 2))
+        books_on_str = 2
+        book_params = list(chunked(book_params, books_on_str))
         rendered_page = template.render(
             all_books=book_params,
             page_number=page_number,
