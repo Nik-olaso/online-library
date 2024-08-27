@@ -15,10 +15,8 @@ def on_reload():
     pages_path = "pages"
     os.makedirs(pages_path, exist_ok=True)
 
-    books_file = codecs.open("books_info/books_params.json", "r", "utf_8_sig")
-    books_params = books_file.read()
-    books_file.close()
-    books_params = json.loads(books_params)
+    with codecs.open("books_info/books_params.json", "r", "utf_8_sig") as books_file:
+        books_params = json.load(books_file)
     books_on_page = 10
     books_params = list(chunked(books_params, books_on_page))
     for page_number, book_params in enumerate(books_params, 1):
