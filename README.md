@@ -83,6 +83,7 @@ python render_website.py
 
     Например, сайт может выглядеть [так](https://nik-olaso.github.io/online-library/pages/index1.html):
    
+   
     ![alt text](static/images/website.png)
 
     Чтобы скачать только книгу, которую вы хотите, не скачивая код, вам нужно:
