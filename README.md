@@ -67,7 +67,7 @@ python render_website.py
     Например:
 
     ```
-    python library.py --start_page 20(Любое его значение) --end_page 30(Любое его значение) --skip_txt skip(Либо не вводим) --skip_img skip(Либо не вводим) --dest_folder all_folders(Любое название)
+    python library.py --start_page 20(Любое его значение) --end_page 30(Любое его значение) --skip_txt skip(Либо не вводим) --skip_img skip(Либо не вводим) --dest_folder books_info(Любое название)
     ```
 
     Каждый из параметров необязательный, если ничего не указать, скачаются ВСЕ страницы научной фантастики

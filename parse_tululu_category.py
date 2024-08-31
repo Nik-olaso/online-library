@@ -1,3 +1,4 @@
+import os
 from urllib.parse import urljoin
 import requests
 from bs4 import BeautifulSoup
@@ -41,6 +42,7 @@ def main():
     skip_txt = args.skip_txt
     skip_img = args.skip_img
     dest_folder = args.dest_folder
+    os.system(f"echo BOOKS_FOLDER = {dest_folder} > .env")
     all_books_params = []
     for number in range(start_page, end_page):
         try:

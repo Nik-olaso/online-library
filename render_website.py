@@ -4,6 +4,7 @@ from jinja2 import Environment, FileSystemLoader, select_autoescape
 import codecs
 from livereload import Server
 from more_itertools import chunked
+from dotenv import load_dotenv
 
 
 def on_reload():
@@ -15,7 +16,9 @@ def on_reload():
     pages_path = "pages"
     os.makedirs(pages_path, exist_ok=True)
 
-    with codecs.open("books_info/books_params.json", "r", "utf_8_sig") as books_file:
+    books_folder = os.getenv("BOOKS_FOLDER")
+
+    with codecs.open(f"{books_folder}/books_params.json", "r", "utf_8_sig") as books_file:
         books_params = json.load(books_file)
     books_on_page = 10
     books_params = list(chunked(books_params, books_on_page))
@@ -34,11 +37,12 @@ def on_reload():
 
 
 def main():
+    load_dotenv()
     on_reload()
     server = Server()
     server.watch("template.html", on_reload)
     server.serve(root=".")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
