@@ -18,7 +18,9 @@ def on_reload():
 
     books_folder = os.getenv("BOOKS_FOLDER")
 
-    with codecs.open(f"{books_folder}/books_params.json", "r", "utf_8_sig") as books_file:
+    with codecs.open(
+        f"{books_folder}/books_params.json", "r", "utf_8_sig"
+    ) as books_file:
         books_params = json.load(books_file)
     books_on_page = 10
     books_params = list(chunked(books_params, books_on_page))
