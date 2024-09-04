@@ -1,4 +1,3 @@
-import os
 from urllib.parse import urljoin
 import requests
 from bs4 import BeautifulSoup
@@ -6,6 +5,7 @@ from library import download_txt, download_image, parse_book_page, check_for_red
 import time
 import argparse
 import json
+import urllib.parse
 
 
 def main():
@@ -52,7 +52,7 @@ def main():
     dest_folder = args.dest_folder
     json_name = args.json_name
     env_params = f"""BOOKS_FOLDER = {dest_folder}\nJSON_NAME = {json_name}"""
-    with open(".env",  "w", encoding="utf8") as file:
+    with open(".env", "w", encoding="utf8") as file:
         file.write(env_params)
     all_books_params = []
     for number in range(start_page, end_page):
@@ -88,12 +88,17 @@ def main():
 
                     if not skip_txt:
                         book_path = download_txt(
-                            downloading_response, f"{book_name}", dest_folder
+                            downloading_response,
+                            f"{book_name}",
+                            dest_folder,
                         )
                         book_params["book_path"] = book_path
                     image_url = urljoin(book_url, book_picture_url)
                     if not skip_img:
-                        image_path = download_image(image_url, dest_folder)
+                        image_path = download_image(
+                            image_url,
+                            dest_folder,
+                        )
                         book_params["img_src"] = image_path
                     book_params.pop("picture_url")
 
