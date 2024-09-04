@@ -10,10 +10,13 @@ import json
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Это скрипт создан для скачивания книг с онлайн-библиотеки"
+        description="Это скрипт создан для скачивания книг с онлайн-библиотеки",
     )
     parser.add_argument(
-        "--start_page", type=int, default=1, help="С какой страницы начинать скачивание"
+        "--start_page",
+        type=int,
+        default=1,
+        help="С какой страницы начинать скачивание",
     )
     parser.add_argument(
         "--end_page",
@@ -36,13 +39,21 @@ def main():
         default="books_info",
         help="Название общей папки для текста книг, их картинок и json-файла с параметрами книги",
     )
+    parser.add_argument(
+        "--json_name",
+        default="books_params",
+        help="Название JSON-файла с информацией о книгах",
+    )
     args = parser.parse_args()
     start_page = args.start_page
     end_page = args.end_page
     skip_txt = args.skip_txt
     skip_img = args.skip_img
     dest_folder = args.dest_folder
-    os.system(f"echo BOOKS_FOLDER = {dest_folder} > .env")
+    json_name = args.json_name
+    env_params = f"""BOOKS_FOLDER = {dest_folder}\nJSON_NAME = {json_name}"""
+    with open(".env",  "w", encoding="utf8") as file:
+        file.write(env_params)
     all_books_params = []
     for number in range(start_page, end_page):
         try:
@@ -102,7 +113,7 @@ def main():
             print("Что-то произошло с подключением к интернету, повторяется запрос.\n")
             time.sleep(3)
             continue
-    with open(f"{dest_folder}/books_params.json", "a", encoding="utf8") as json_file:
+    with open(f"{dest_folder}/{json_name}.json", "a", encoding="utf8") as json_file:
         json.dump(all_books_params, json_file, ensure_ascii=False, indent=4)
 
 

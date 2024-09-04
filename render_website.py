@@ -17,9 +17,10 @@ def on_reload():
     os.makedirs(pages_path, exist_ok=True)
 
     books_folder = os.getenv("BOOKS_FOLDER")
+    json_name = os.getenv("JSON_NAME")
 
     with codecs.open(
-        f"{books_folder}/books_params.json", "r", "utf_8_sig"
+        f"{books_folder}/{json_name}.json", "r", "utf_8_sig"
     ) as books_file:
         books_params = json.load(books_file)
     books_on_page = 10
