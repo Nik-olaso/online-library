@@ -5,7 +5,6 @@ from library import download_txt, download_image, parse_book_page, check_for_red
 import time
 import argparse
 import json
-import urllib.parse
 
 
 def main():
