@@ -53,7 +53,7 @@ python render_website.py
 2. Для файла `parse_tululu_category.py`:
 
     ```
-    python library.py --help
+    python parse_tululu_category.py --help
     ```
     В этом файле есть два аргумента, которые Вы можете дополнить: 
 
@@ -66,7 +66,7 @@ python render_website.py
     Например:
 
     ```
-    python library.py --start_page 20(Любое его значение) --end_page 30(Любое его значение) --skip_txt skip(Либо не вводим) --skip_img skip(Либо не вводим) --dest_folder books_info(Любое название)
+    python parse_tululu_category.py --start_page 20(Любое его значение) --end_page 30(Любое его значение) --skip_txt skip(Либо не вводим) --skip_img skip(Либо не вводим) --dest_folder books_info(Любое название)
     ```
 
     Каждый из параметров необязательный, если ничего не указать, скачаются ВСЕ страницы научной фантастики
@@ -100,7 +100,7 @@ python render_website.py
 
     Всю статику такую как bootstrap, javascript и картинки код берет из папки `static` 
 
-    А все данные для размещения книг на странице код берет из папки `all_folders`, оттуда достаются и книги, и их картинки, и даже json-файл со всеми данными про книгу
+    А все данные для размещения книг на странице код берет из папки `books_info`, оттуда достаются и книги, и их картинки, и даже json-файл со всеми данными про книгу
 
 
 ## Цель проекта
